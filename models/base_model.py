@@ -2,6 +2,7 @@
 """ BaseModel Class Module """
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -18,10 +19,13 @@ class BaseModel:
                                         value, "%Y-%m-%dT%H:%M:%S.%f")
                 else:
                     self.__dict__[key] = value
+        else:
+            models.storage.new(self)
 
     def save(self):
         """ Update the attribute to the current datetime Method """
         self.updated_at = datetime.now()
+        models.storage.new(self)
 
     def to_dict(self):
         """ Get a dict of the BaseModel Method """
