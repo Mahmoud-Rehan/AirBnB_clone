@@ -21,5 +21,31 @@ class HBNBCommand(cmd.Cmd):
         """ Pass when empty line """
         pass
 
+    def do_create(self, command):
+        if command:
+            try:
+                new_class = globals().get(command, None)
+                new_obj = new_class()
+                new_obj.save()
+                print(new_obj.id)
+            except Exception:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+
+    def do_show(self, command):
+        cmd_array = command.split()
+
+        if len(cmd_array) < 1:
+            print("** class name missing **")
+        elif cmd_array[0] not in classes:
+            print("** class doesn't exist **")
+        elif len(cmd_array) < 2:
+            print("** instance id missing **")
+        elif f"{cmd_array[0]}.{cmd_array[1]}" not in storage.all():
+            print("** no instance found **")
+        else:
+            print(storage.all()["{}.{}".format(cmd_array[0], cmd_array[1])])
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
