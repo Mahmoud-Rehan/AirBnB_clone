@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Serialization and Desirialization Module """
+from models.base_model import BaseModel
 import json
 
 
@@ -10,7 +11,7 @@ class FileStorage:
 
     def all(self):
         """ Gets the dict of objects method """
-        return (type(self).__objects)
+        return (FileStorage.__objects)
 
     def new(self, obj):
         """ Sets obj in __objects method """
@@ -19,20 +20,26 @@ class FileStorage:
 
     def save(self):
         """ Serialize __objects to a JSON file method """
-        my_dict = []
-        for key, value in FileStorage.__objects.items():
-            my_dict[key] = value.to_dict()
+        obj_dict = FileStorage.__objects
+        my_dict = {}
+        """print(obj_dict)
+        print()"""
+        for key in obj_dict.keys():
+            my_dict = {key: obj_dict[key].to_dict()}
+            """print(key, obj_dict[key], obj_dict[key].to_dict)
+            print()
+            print(my_dict)"""
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
             json.dump(my_dict, f)
 
     def reload(self):
         """ Desirialize JSON file to __objects method """
         try:
-            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
-                object_dict = json.load(f)
-                for key, value in object_dict.items():
-                    name = value["__class__"]
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
+                object_dict = json.load(file)
+                for value in object_dict.values():
+                    class_name = value["__class__"]
                     del value["__class__"]
-                    self.new(eval(name)(**value))
+                    self.new(eval(class_name)(**value))
         except FileNotFoundError:
             pass
