@@ -5,13 +5,11 @@ from datetime import datetime
 class BaseModel:
     def __init__(self, *args, **kwargs):
         if kwags:
-            #dtformat = "%Y-%m-%dT%H:%M:%S.%f"
+            dtformat = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
                 if key != "__class__":
-                    if key == "created_at":
-                        self.created_at = datetime.fromisoformat(value)
-                    elif key == "updated_at":
-                        self.updated_at = datetime.fromisoformat(value)
+                    if key in ["created_at", "updated_at"]:
+                        setattr(self, key, datetime.strptime(value, dtformat))
                     else:
                         setattr(self, key, value)
         else:
