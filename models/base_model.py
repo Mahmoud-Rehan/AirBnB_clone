@@ -5,10 +5,13 @@ from datetime import datetime
 class BaseModel:
     def __init__(self, *args, **kwargs):
         if kwags:
+            #dtformat = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
                 if key != "__class__":
-                    if key in ["created_at", "updated_at"]:
-                        value = datetime.fromisoformat(value)
+                    if key == "created_at":
+                        self.created_at = datetime.fromisoformat(value)
+                    elif key == "updated_at":
+                        self.updated_at = datetime.fromisoformat(value)
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())
