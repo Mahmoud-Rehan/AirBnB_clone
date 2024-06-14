@@ -12,7 +12,8 @@ class BaseModel:
                         self.created_at = datetime.fromisoformat(value)
                     elif key == "updated_at":
                         self.updated_at = datetime.fromisoformat(value)
-                    setattr(self, key, value)
+                    else:
+                        setattr(self, key, value)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
