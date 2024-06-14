@@ -4,7 +4,7 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        if kwags:
+        if kwargs:
             dtformat = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
                 if key != "__class__":
