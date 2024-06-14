@@ -9,7 +9,7 @@ class FileStorage:
 
 
     def all(self):
-        return (FileStorage.__objects)
+        return FileStorage.__objects
 
     def new(self, obj):
         key = f"{obj.__class__.__name__}.{obj.id}"
@@ -29,7 +29,7 @@ class FileStorage:
 
                 for k, v in my_dict.items():
                     class_name = v["__class__"]
-                    FileStorage.__objects = eval(class_name)(**v)
+                    FileStorage.__objects[k] = eval(class_name)(**v)
 
         except FileNotFoundError:
             pass
