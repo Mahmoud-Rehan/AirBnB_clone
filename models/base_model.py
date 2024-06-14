@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from uuid import uuid4
 from datetime import datetime
+import models
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
@@ -16,6 +17,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
+            models.storage.new(self)
 
     def __str__(self):
         name = self.__class__.__name__
@@ -23,6 +25,7 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.utcnow()
+        models.storage.save()
 
     def to_dict(self):
         my_dict = self.__dict__.copy()
