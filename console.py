@@ -78,5 +78,17 @@ class HBNBCommand(cmd.Cmd):
                 del storage.all()[key]
                 storage.save()
 
+    def do_all(self, line):
+        if not line:
+            print([str(v) for k, v in storage.all().items()])
+        else:
+            if line not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+            else:
+                my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
+                pritn(my_list)
+
+
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
