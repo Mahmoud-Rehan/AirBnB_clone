@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
-                pritn(my_list)
+                print(my_list)
 
 
 
