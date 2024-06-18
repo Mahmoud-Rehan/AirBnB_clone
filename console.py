@@ -79,6 +79,7 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_all(self, line):
+        """ prints all string representatio of all instances """
         if not line:
             print([str(v) for k, v in storage.all().items()])
         else:
@@ -87,6 +88,31 @@ class HBNBCommand(cmd.Cmd):
             else:
                 my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
                 print(my_list)
+
+
+    def do_update(self, line):
+        lines = line.split()
+
+        if not lines:
+            print("** class name missing **")
+        elif lines[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(lines) < 2:
+            print("** instance id missing **")
+        else:
+            key = f"{line[0]}.{line[1]}"
+
+            if key not in storage.all():
+                print("** no instance found **")
+                return
+
+        if len(lines) < 3:
+            print("** attribute name missing **")
+        elif len(lines) < 4:
+            print("** value missing **")
+        else:
+            setattr(storage.all()[key], lines[2], lines[3])
+            storage.save()
 
 
 
