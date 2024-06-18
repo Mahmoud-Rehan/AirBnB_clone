@@ -96,26 +96,32 @@ class HBNBCommand(cmd.Cmd):
         if not lines:
             print("** class name missing **")
             return
-        elif lines[0] not in HBNBCommand.classes:
+
+        if lines[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        elif len(lines) < 2:
+
+        if len(lines) < 2:
             print("** instance id missing **")
             return
-        else:
-            key = f"{line[0]}.{line[1]}"
 
-            if key not in storage.all():
-                print("** no instance found **")
-                return
+        key = f"{line[0]}.{line[1]}"
+
+        if key not in storage.all():
+            print("** no instance found **")
+            return
 
         if len(lines) < 3:
             print("** attribute name missing **")
-        elif len(lines) < 4:
+            return
+
+        if len(lines) < 4:
             print("** value missing **")
-        else:
-            setattr(storage.all()[key], lines[2], lines[3])
-            storage.save()
+            return
+
+        setattr(storage.all()[key], lines[2], lines[3])
+        storage.save()
+
 
 
 
