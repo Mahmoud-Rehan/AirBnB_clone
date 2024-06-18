@@ -4,6 +4,7 @@ import cmd
 from models.base_model import BaseModel
 from models import storage
 
+
 class HBNBCommand(cmd.Cmd):
     """ HBNBCommand Class """
     prompt = "(hbnb) "
@@ -60,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """ Deletes an instance based on
         <Class name> and <Id> """
-        lines = line.split
+        lines = line.split()
 
         if not lines:
             print("** class name missing **")
