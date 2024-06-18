@@ -105,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
-        key = f"{line[0]}.{line[1]}"
+        key = f"{lines[0]}.{lines[1]}"
 
         if key not in storage.all():
             print("** no instance found **")
