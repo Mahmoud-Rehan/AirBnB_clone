@@ -3,6 +3,6 @@
 from models.base_model import BaseModel
 
 
-class City(baseModel):
+class City(BaseModel):
     state_id = ""
     namme = ""
