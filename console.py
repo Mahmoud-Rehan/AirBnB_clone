@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
 
     classes = {
             "BaseModel": BaseModel,
-            "User": User
+            "User": User,
             "State": State,
             "City": City,
             "Amenity": Amenity,
