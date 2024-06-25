@@ -3,6 +3,12 @@
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.user import User
+from models.state import state
+from models.city import city
+from models.amenity import amenity
+from models.place import place
+from models.review import review
 from models import storage
 
 
@@ -13,6 +19,11 @@ class HBNBCommand(cmd.Cmd):
     classes = {
             "BaseModel": BaseModel,
             "User": User
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
             }
 
     def do_quit(self, line):
