@@ -94,12 +94,11 @@ class HBNBCommand(cmd.Cmd):
         """ prints all string representatio of all instances """
         if not line:
             print([str(v) for k, v in storage.all().items()])
+        elif line in HBNBCommand.classes:
+            my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
+            print(my_list)
         else:
-            if line not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-            else:
-                my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
-                print(my_list)
+            print("** class doesn't exist **")
 
 
     def do_update(self, line):
