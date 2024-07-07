@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ HBNBCommand Class Module """
 import cmd
+import shlex
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -93,14 +94,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """ prints all string representatio of all instances """
-        if not line:
-            print([str(v) for k, v in storage.all().items()])
-        else:
-            if line not in HBNBCommand.classes:
+        my_objects = storage.all()
+        lines = shlex.split(line)
+
+        if len(lines) == 0:
+            print([str(v) for k, v in my_objects.items()])
+        elif lines[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
-            else:
-                my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
-                print(my_list)
+        else:
+            for key, value in my_objects.items():
+                if key.split(".")[0] == lines[0]:
+                    print(str(value))
 
 
     def do_update(self, line):
