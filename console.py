@@ -90,9 +90,9 @@ class HBNBCommand(cmd.Cmd):
                 del storage.all()[key]
                 storage.save()
 
-    def do_all(self, line):
+    """def do_all(self, line):"""
         """ prints all string representatio of all instances """
-        my_list = []
+        """my_list = []
         if not line:
             print([str(v) for k, v in storage.all().items()])
         else:
@@ -105,6 +105,16 @@ class HBNBCommand(cmd.Cmd):
                     class_name = k.split(".")
                     if class_name[0] == lines[0]:
                         my_list.append(str(value))
+                print(my_list) """
+    def do_all(self, line):
+        """ prints all string representatio of all instances """
+        if not line:
+            print([str(v) for k, v in storage.all().items()])
+        else:
+            if line not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+            else:
+                my_list = [str(value) for value in storage.all().values() if line == value.__class__.__name__]
                 print(my_list)
 
 
